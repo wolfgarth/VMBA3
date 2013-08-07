@@ -1,0 +1,4 @@
+// MILSIM LOADOUT MENU
+#include "MILSIM\dialog\defines.hpp"
+#include "MILSIM\dialog\dialog.hpp"
+//--

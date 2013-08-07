@@ -4,24 +4,27 @@ class Mission
 	addOns[]=
 	{
 		"a3_map_stratis",
-		"A3_Characters_F_BLUFOR"
+		"A3_Characters_F_BLUFOR",
+		"milsim_units"
 	};
 	addOnsAuto[]=
 	{
 		"A3_Characters_F_BLUFOR",
+		"milsim_units",
 		"a3_map_stratis"
 	};
 	randomSeed=11663778;
 	class Intel
 	{
-		timeOfChanges=1800.0002;
-		startWeather=0.30000001;
-		startWind=0.1;
-		startWaves=0.1;
-		forecastWeather=0.30000001;
-		forecastWind=0.1;
-		forecastWaves=0.1;
-		forecastLightnings=0.1;
+		briefingName="MILSIM Template 0.1";
+		overviewText="MILSIM Template 0.1";
+		startWeather=0.29999998;
+		startWind=0.099999994;
+		startWaves=0.099999994;
+		forecastWeather=0.29999998;
+		forecastWind=0.099999994;
+		forecastWaves=0.099999994;
+		forecastLightnings=0.099999994;
 		year=2035;
 		month=7;
 		day=6;
@@ -34,7 +37,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=1;
+		items=4;
 		class Item0
 		{
 			side="WEST";
@@ -43,7 +46,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={1663.7021,5.5,5345.8594};
+					position[]={1649.9716,5.5,5341.2593};
 					id=0;
 					side="WEST";
 					vehicle="B_Soldier_F";
@@ -52,6 +55,73 @@ class Mission
 					skill=0.60000002;
 				};
 			};
+		};
+		class Item1
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1665.5315,5.5,5340.4282};
+					id=1;
+					side="WEST";
+					vehicle="B_Soldier_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item2
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1680.2596,5.5,5340.9741};
+					id=2;
+					side="WEST";
+					vehicle="B_Soldier_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item3
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1693.0786,5.5,5342.0649};
+					id=3;
+					side="WEST";
+					vehicle="B_Soldier_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=1;
+		class Item0
+		{
+			position[]={1650.5518,5.5,5362.1021};
+			id=4;
+			side="EMPTY";
+			vehicle="MILSIM_LoadoutBox";
+			skill=0.60000002;
+			init="this addAction [""<t color='#0000FF'>"" + ""MILSIM LoadOut Menu"" + ""</t>"",""MILSIM\dialog\LoadOutMenu.sqf"",(""MILSIM LoadOut Menu"")];";
 		};
 	};
 };
