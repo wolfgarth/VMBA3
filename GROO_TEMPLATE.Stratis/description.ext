@@ -1,0 +1,3 @@
+this addAction ["<t color='#0000FF'>" + "MILSIM LoadOut Menu" + "</t>","MILSIM\dialog\LoadOutMenu.sqf",[],-199,false,false,"","_this distance MILSIMBox < 20"];this allowdamage false;
+
+[title, filename(or Code), (arguments, priority, showWindow, hideOnUse, shortcut, condition)]

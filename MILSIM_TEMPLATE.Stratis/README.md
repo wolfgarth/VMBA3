@@ -9,15 +9,23 @@ Features:
 - Editing Mode with no Damage and Map Click Teleport
 - MILSIM LoadOut Dialog
 - MILSIM Squads Template
+- GROUP Management Actions
+- BRIEFING Topics & Credits Script
+
 
 Planned Features:
 
 - MILSIM Vehicles Template
+- Norrin Camera for Spectating and Capturing
+- Revive Script
+
 
 Changelog:
 
 0.11 - Included MILSIM Squads
 	 - Initial Version of Loadout Menu working
+	 - Included Group Management
+	 - Included Briefing & Credits
 
 0.1 - Server console function added from Groo Framwork
 	- Editing Mode with no Damage and Map Click Teleport

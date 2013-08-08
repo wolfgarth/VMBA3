@@ -17,9 +17,13 @@ call compile preprocessFileLineNumbers "groo\groo_init.sqf";
 
 if PARAMEDITMODE then {
 	player allowDamage false;
+	[]execVM "NORRN_cam\start_cam.sqf";
 	onMapSingleClick "player setpos _pos";
 	["INFO: Edit mode Enabled - Player Damage Disabled - Mapclick Teleport Enabled","green"] spawn groo_fnc_consoleMSG;
 };
+
+// MILSIM LoadOut Script
+player addAction ["<t color='#0000FF'>" + "MILSIM LoadOut Menu" + "</t>","MILSIM\dialog\LoadOutMenu.sqf",[],10,false,false,"","_this distance MILSIMBox < 20"];
 
 // Group Maneagement Script
 ["INFO: Group Maneagement Script Enabled","green"] spawn groo_fnc_consoleMSG;
