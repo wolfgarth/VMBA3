@@ -1,0 +1,72 @@
+// MILSIM LOADOUT MENU
+#include "MILSIM\dialog\defines.hpp"
+#include "MILSIM\dialog\dialog.hpp"
+//--
+//-------------------------------------------LOADING INFO--------------------------------------------------------------------
+		author = "Virtual MilSim 3º Seção"; 
+		onLoadName = "Operação Socrates"; 
+		onLoadMission = "Virtual Milsim Brasil S3 Team"; 
+//		loadScreen = "pictures\sw_ed.jpg";
+		disabledAI = 1;
+		
+		overviewText = "Destrua os Recursos de Guerra do Inimigo. Mate o Oficial Genocida.";
+//		overviewTextLocked = "Lock Text";
+//		overviewPicture = "";
+		
+//-------------------------------------------GAMETYPE-----------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Header
+	{
+	gameType = Coop;
+	minPlayers = 1; 
+	maxPlayers = 32;
+	};
+//-------------------------------------------RESPAWN SETTINGS----------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	respawn = "3";
+	respawndelay = 10;
+
+
+class CfgMusic
+{
+   tracks[]={Overdose,Doom};
+   class Overdose
+  {
+    name = "Overdose";
+    sound[] = {\Music\Overdose.ogg, db+1, 1.0};
+  };
+   class Doom
+  {
+    name = "Doom";
+    sound[] = {\Music\Doom.ogg, db+1, 1.0};
+  };
+   
+};
+
+class RscTitles 
+{
+	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"
+};
+
+// Include for NORRN_cam
+#include "NORRN_cam\NORRN_cam_dialog.hpp"
+
+class Params
+{
+        class ShowIntro
+        {
+        //paramsArray[2]
+                title = "Show Intro";
+                values[] = {1,0};
+                texts[] = {"ENABLED","DISABLED"};
+                default = 1;
+        };
+		class TestMode
+        {
+        //paramsArray[3]
+                title = "TestMode";
+                values[] = {0,1};
+                texts[] = {"ENABLED","DISABLED"};
+                default = 0;
+        };
+};

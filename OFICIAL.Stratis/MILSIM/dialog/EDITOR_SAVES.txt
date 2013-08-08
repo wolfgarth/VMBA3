@@ -1,0 +1,43 @@
+// BACKGROUND TEST
+
+/* #Tipawa
+$[
+	1.062,
+	["MILSIMLoadOutMenu",[["safezoneX","safezoneY","safezoneW","safezoneH"],"safezoneW / 40","safezoneH / 25","GUI_GRID"],0,0,0],
+	[1000,"ctr_loadout_backgroung",[1,"",["0.3 * safezoneW + safezoneX","0.16 * safezoneH + safezoneY","0.375 * safezoneW","0.62 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.5],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
+// INITIAL VERSION
+
+/* #Ruvuho
+$[
+	1.062,
+	["MILSIMLoadOutMenu",[["safezoneX","safezoneY","safezoneW","safezoneH"],"safezoneW / 40","safezoneH / 25","GUI_GRID"],0,0,0],
+	[1000,"ctr_loadout_backgroung",[1,"",["0.3375 * safezoneW + safezoneX","0.1 * safezoneH + safezoneY","0.2925 * safezoneW","0.696 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.8],[-1,-1,-1,-1],"","-1"],[]],
+	[1001,"lbl_MILSIM_LoadOutMenu_Title",[1,"MILSIM LoadOut Menu",["0.3375 * safezoneW + safezoneX","0.1 * safezoneH + safezoneY","0.2 * safezoneW","0.04 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2100,"cb_MILSIM_LoadOutMenu_Team",[1,"",["0.35 * safezoneW + safezoneX","0.16 * safezoneH + safezoneY","0.1625 * safezoneW","0.028 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"btn_MILSIM_LoadOutMenu_choose_team",[1,"select team",["0.35 * safezoneW + safezoneX","0.2 * safezoneH + safezoneY","0.0875 * safezoneW","0.024 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","0.6"],[]],
+	[1500,"lst_MILSIM_LoadOutMenu_classes",[1,"",["0.35 * safezoneW + safezoneX","0.24 * safezoneH + safezoneY","0.2625 * safezoneW","0.48 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","0.6"],[]],
+	[1601,"btn_MILSIM_LoadOutMenu_Load",[1,"Load",["0.45 * safezoneW + safezoneX","0.74 * safezoneH + safezoneY","0.0708333 * safezoneW","0.029 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","0.6"],[]],
+	[1602,"bnt_MILSIM_LoadOutMenu_close",[1,"Close",["0.5375 * safezoneW + safezoneX","0.74 * safezoneH + safezoneY","0.0708333 * safezoneW","0.029 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","0.6"],[]],
+	[1002,"lbl_MILSIM_LoadOutMenu_team",[1,"No Team Selected",["0.4625 * safezoneW + safezoneX","0.18 * safezoneH + safezoneY","0.15 * safezoneW","0.08 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/
+
+// SECOND VERSION
+
+/* #Heceki
+$[
+	1.062,
+	["MILSIMLoadOutMenu",[["safezoneX","safezoneY","safezoneW","safezoneH"],"safezoneW / 40","safezoneH / 25","GUI_GRID"],0,0,0],
+	[1000,"ctr_loadout_backgroung",[1,"",["0.3375 * safezoneW + safezoneX","0.1 * safezoneH + safezoneY","0.2925 * safezoneW","0.64 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.8],[-1,-1,-1,-1],"","-1"],[]],
+	[1001,"lbl_MILSIM_LoadOutMenu_Title",[1,"MILSIM LoadOut Menu",["0.3375 * safezoneW + safezoneX","0.1 * safezoneH + safezoneY","0.2 * safezoneW","0.04 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[2100,"cb_MILSIM_LoadOutMenu_Team",[1,"",["0.355 * safezoneW + safezoneX","0.164 * safezoneH + safezoneY","0.1475 * safezoneW","0.032 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"btn_MILSIM_LoadOutMenu_choose_team",[1,"Select",["0.5125 * safezoneW + safezoneX","0.164 * safezoneH + safezoneY","0.095 * safezoneW","0.032 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1500,"lst_MILSIM_LoadOutMenu_classes",[1,"",["0.35 * safezoneW + safezoneX","0.264 * safezoneH + safezoneY","0.2625 * safezoneW","0.396 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1601,"btn_MILSIM_LoadOutMenu_Load",[1,"Load",["0.425 * safezoneW + safezoneX","0.68 * safezoneH + safezoneY","0.0833333 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1602,"bnt_MILSIM_LoadOutMenu_close",[1,"Close",["0.525 * safezoneW + safezoneX","0.68 * safezoneH + safezoneY","0.0833333 * safezoneW","0.033 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1002,"lbl_MILSIM_LoadOutMenu_team",[1,"No Team Selected",["0.35 * safezoneW + safezoneX","0.2 * safezoneH + safezoneY","0.15 * safezoneW","0.08 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/

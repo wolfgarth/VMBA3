@@ -1,0 +1,466 @@
+//
+//grooEOS.SQF FOR ARMA III
+//
+//Place a 50x50 Red Rectangle marker and name it
+//null = ["parameter1",parameter2,parameter3,parameter4,parameter5] execvm "EOS.sqf"
+//Null = ["mkr1",360,"Patrol"] execVM "grooEOS.sqf"
+//Parameter1 - "Markername"
+//Parameter2 - "Detection Distance"
+
+/*Parameter3
+
+	"GARRISON"		Small Group that Garrison buildings.
+	"Patrol" 		Small Group that patrols inside the marker
+	"Squad"  		A squad that patrols  inside de marker
+	"Platoon"		A Platton that Garrison and Patrol the Marker
+	"ATTEAM"  		AT Squad that Patrol the marker
+	"Sniper"		Sniper Team
+	"SpecOps"		Spec Ops that Ambush and Patrol
+	"Armoured"		A tank that patrols the markerAlpha
+	"CUSTOM"		A array of [[units],[ranks],[UPSparams]]
+	
+*/
+
+//Writen By Groo based on the				
+//Script Written by BangaBob
+//version 0.1
+//
+
+//--------------------------------------------MAKE CHANGES BELOW-------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------AI GROUP POOL----------------------------------------------------------------
+
+_garrison 			= [
+						"IDF_rifleman1",
+						"IDF_rifleman2",	
+						"IDF_rifleman5",	
+						"IDF_rifleman6"
+					];
+
+_garrisonRanks 		= [];
+_garrisonSkills 	= [0.1,0.4];
+
+_scouts				=["O_Recon_F","O_Recon_F"];
+_scoutsRanks 		=[];
+_scoutsSkills		=[0.4,0.7];
+
+_Patrol 			=[
+						"O_Soldier_GL_F",
+						"O_Soldier_F",
+						"O_Soldier_GL_F",
+						"O_Soldier_F",
+						"O_Soldier_GL_F"
+					];
+						
+_PatrolRanks 		=[];
+_PatrolSkills		=[0.25,0.4];
+
+_Squad 				=[
+						"IDF_rifleman1",
+						"IDF_rifleman2",
+						"IDF_rifleman3",
+						"O_Soldier_LAT_F",
+						"IDF_rifleman4",
+						"O_Soldier_TL_F",
+						"IDF_rifleman5",
+						"IDF_rifleman6",
+						"IDF_rifleman4",
+						"IDF_rifleman3"	
+					];
+					
+_SquadRanks 		=[];
+_squadSkills		=[0.25,0.4];
+
+_Platoon 	=[
+			
+			/*Defensive*/		[],
+			/*Patrolling*/		[],
+			/*Offensive*/		[]
+			
+			];
+_PlatoonRanks =[
+								[],
+								[],
+								[]
+			];
+
+_PlatoonSkills =[[0.25,0.4],[0.25,0.4],[0.25,0.4]];
+
+_ATTEAM		  =["O_Soldier_TL_F","O_Soldier_LAT_F","O_Soldier_LAT_F","O_Soldier_LAT_F","O_Soldier_LAT_F"];
+_ATTEAMRanks  =[];
+_ATTEAMSkills =[0.25,0.4];
+
+_Snipers		=["O_Sniper_F","O_Spotter_F"];
+_SniperRanks = [];
+_SniperSkills = [0.7,0.9];
+
+_SpecOps 	=[
+			"O_recon_TL_F",
+			"O_recon_exp_F",
+			"O_recon_exp_F",
+			"O_recon_M_F",
+			"O_scout_F",
+			"O_scout_F"
+			];
+			
+_SpecOpsRanks = [];
+_specOpsSkills = [0.7,0.9];
+
+_Armour		=["O_APC_Wheeled_02_rcws_F"];
+
+//--------------------------------------------EXECVM PARAMETERS---------------------------------------------------------------
+
+// convert argument list to uppercase
+
+_markerPosition = markerPos (_this select 0);				 	
+_mkrName = (_this select 0);				 	
+
+_enemySide = 0;
+_loop = [];
+_loop = _this;
+_debugHint = PARAMEDITMODE;
+_debug = false;
+
+//----------------------------------------------USEFUL PARAMETERS--------------------------------------------------------------
+
+//_mkrAreaX = (markersize _mkrName) select 0;
+//_mkrAreaY = (markersize _mkrName) select 1;
+
+_mkrSize = getmarkersize _mkrName;
+_detectionDistanceY = (_mkrSize select 0) + (_this select 1);
+_detectionDistanceX = (_mkrSize select 1) + (_this select 1);
+_cacheDistanceY = (_detectionDistanceY + 150);	
+_cacheDistanceX = (_detectionDistanceX + 150);					//RECOMMENDED DISTANCE 75 // NEED TO BE BIDIMENTIONAL
+_radiusPlacement = 50;											//RECOMMEND RADIUS OF MARKER // NOT USED YET
+_reinforcementPlacement = (_radiusPlacement + 200);				//RADIUS OF MARKER + 200m // NOT USED YET
+
+//-----------------------------------------DO NOT EDIT BELOW THIS LINE---------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+private["_mkrSize","_mkrname","_markerPosition","_cacheDistanceY","_cacheDistanceY","_radiusPlacement","_detectionSide","_detectionDistanceY","_detectionDistanceX","_spotFriendlies","_spotEnemies","_spotFriendlyLeaving","_skills","_upsParam","_garrison","_garrisonRanks","_garrisonSkills","_patrol","_patrolRanks","_patrolSkills","_squad","_squadRanks","_squadSkills","_platoon","_platoonRanks","_platoonSkills","_atteam","_atteamRanks","_atteamSkills","_scouts","_scoutsRanks","_scoutsSkills","_snipers","_sniperRanks","_sniperSkills","_armour","_units","_newTank","_tanks","_crewTanks","_newGroup","_Groups","_loop","_grp1","_svactual","_reinforcementPlacement","_reinforcingPatrol","_callReinforcements","_hideReinforcementSpawn","_unique","_debugMarker","_getToMarker","_aiSide","_grpType","_sideAdjust","_grpClass","_UCthis","_spwnposnew","_tankType"];
+
+//--------------------------------------------CONSTRUCT SIDE VARIABLES-----------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+switch (_enemySide) do
+{
+	case 0:
+	{
+	if (_debugHint) then {Hint "EAST AI selected";};
+	_SideAdjust = east;
+	_aiSide = "EAST"; 
+	_detectionSide = "WEST";
+	};
+	
+	case 1:
+	{
+	if (_debugHint) then {Hint "WEST AI selected";};
+	_sideAdjust = West;
+	_detectionSide = "EAST";
+	_aiSide = "WEST";
+	};
+	case 2:
+	{
+	if (_debugHint) then {Hint "GUER AI selected";};
+	_sideAdjust = GUER;
+	_aiSide = "GUER";
+	_detectionSide = "EAST";
+	};
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//--------------------------------------------CONSTRUCT DETECTION STRUCTURES-----------------------------------------------------------
+
+	_spotFriendlies = createTrigger ["EmptyDetector",_markerPosition]; 
+	_spotFriendlies setTriggerArea [_detectionDistanceY,_detectionDistanceX,0,true]; 
+	_spotFriendlies setTriggerActivation [_detectionSide,"PRESENT",true]; 
+	_spotFriendlies setTriggerStatements ["this","",""]; 
+	_spotFriendlies setTriggerType "NONE";
+	_spotFriendlies;
+
+
+	_spotEnemies = createTrigger ["EmptyDetector",_markerPosition]; 
+	_spotEnemies setTriggerArea [_detectionDistanceY,_detectionDistanceX,0,true]; 
+	_spotEnemies setTriggerActivation [_aiSide,"NOT PRESENT",true]; 
+	_spotEnemies setTriggerStatements ["this","",""]; 
+	_spotEnemies setTriggerType "NONE"; 
+	_spotEnemies;
+
+sleep 1;
+
+//------------------------------------------------BEGIN SPAWNING GROUPS-----------------------------------------------------------------
+
+Waituntil {triggeractivated _spotFriendlies};
+if (_debugHint) then {player sidechat format["%1 Activated",_mkrName];};
+
+_UCthis = [];
+for [{_i=0},{_i<count _this},{_i=_i+1}] do {_e=_this select _i; if (typeName _e=="STRING") then {_e=toUpper(_e)};_UCthis set [_i,_e]};
+
+_Tanks = [];
+_crewTanks = [];
+_Groups = [];
+for [{_i=2},{_i<count _UCthis},{_i=_i+1}] do {
+
+		switch (_UCThis  select _i) do {
+			case "GARRISON":{
+							_spwnposnew = _markerPosition;
+							_ranks	= _garrisonRanks;	
+							_skills = 	[0.25,0.4];
+							_upsParam = ["FORTIFY","NOMOVE","SHOWMARKER","SPAWNED","DELETE:",60];
+							_units = _garrison;
+							}; 
+							
+			case "PATROL":{
+							_spwnposnew = _markerPosition;
+							_ranks = _patrolRanks;
+							_skills = 	_patrolSkills;
+							_upsParam = ["RANDOM","NOFOLLOW","SHOWMARKER","SPAWNED","DELETE:",60];
+							_units = _patrol;
+							}; 
+							
+							
+			case "SCOUTS":{
+							_spwnposnew = _markerPosition;
+							_skills = 	_scoutsSkills;
+							_upsParam =	["NOSLOW","RANDOM","NOFOLLOW","SHOWMARKER","SPAWNED","DELETE:",60];
+							_units = _scouts;
+							}; 
+			case "SQUAD":{
+							_spwnposNew = [_markerPosition, random _radiusPlacement, random 359] call BIS_fnc_relPos;
+							_skills = 	_squadSkills;
+							_upsParam =	["MOVE","SHOWMARKER","SPAWNED","DELETE:",60];		
+							_units = _squad;
+							}; 
+							
+			case "PLATOON":{
+							_spwnposNew = [_markerPosition, random _radiusPlacement, random 359] call BIS_fnc_relPos;
+							_skills = 	[0.25,0.4];
+							_upsParam =	["SHOWMARKER","SPAWNED","DELETE:",60];		
+							_units = _platton;
+							}; 
+							
+			case "ATTEAM":{
+							_spwnposNew = [_markerPosition, random _radiusPlacement, random 359] call BIS_fnc_relPos;
+							_skills = 	_atteamSkills;
+							_upsParam =	["MOVE","SHOWMARKER","SPAWNED","DELETE:",60];
+							_units = _atteam;
+							}; 
+
+			case "SNIPERS":{
+							_spwnposnew = _markerPosition;
+							_skills = _snipersSkills;							
+							_upsParam =	["RANDOM","AMBUSH","SHOWMARKER","SPAWNED","DELETE:",60];								
+							_units = _snipers;
+							}; 
+			case "SPECOPS":{
+							_spwnposnew = _markerposition;
+							_skills = 	_SpecOpsSkills;
+							_upsParam =	["RANDOM","AMBUSH","SHOWMARKER","SPAWNED","DELETE:",60];								
+							_units = _SpecOps;
+							}; 
+		};
+								
+		if !((_UCThis Select _i) == "ARMOUR") then {
+			if (isServer) then {	
+
+						GROO_ExecQUEUE = GROO_ExecQUEUE + 1;
+						sleep (GROO_ExecQUEUE);
+						GROO_ExecQUEUE = GROO_ExecQUEUE - 1;
+
+						_upsParam = _upsParam + ["SHOWMARKER","SPAWNED","DELETE:",60];
+						_newGroup = [_spwnposnew,_sideAdjust,_units,[],[],_skills]call BIS_fnc_spawnGroup;
+
+						_param = [(leader _newGroup),_mkrname] + _upsParam;
+						nul= _param execVM "scripts\UPSMON.sqf";
+						_Groups = _Groups + [_newGroup];
+				};
+				
+			if (_debugHint) then {player sidechat format["Spawning ",(_UCThis select _i)];};
+				
+				
+		} else {
+					if (isServer) then {
+						_tankType = _Armour select (floor(random(count _Armour)));
+						_spwnposNew = [_markerPosition, random _radiusPlacement, random 359] call BIS_fnc_relPos;
+						_upsParam = ["SHOWMARKER","SPAWNED","DELETE:",60];
+
+						GROO_ExecQUEUE = GROO_ExecQUEUE + 1;
+						sleep (GROO_ExecQUEUE);
+						GROO_ExecQUEUE = GROO_ExecQUEUE - 1;
+						
+						_newGroup = createGroup _sideAdjust;
+						_tank = [_spwnposNew, random 359, _tankType, _newGroup] call bis_fnc_spawnvehicle;
+						
+						nul=[(leader _newGroup),_mkrname,_upsParam] execVM "scripts\UPSMON.sqf";
+		
+
+						_Tanks = _tanks + [_Tank select 0];
+						
+						_crewTank = _tank select 1;
+						 {_crewTanks = _crewTanks + [_x];} forEach _crewTank;
+						
+						_Groups = _Groups + [_newGroup];
+						
+						};
+						
+						if (_debugHint) then {player sideChat format ["Spawning Tank %1",_tankType]};						
+
+		
+			};
+		
+};
+		
+		
+		if (_debugHint) then {player sidechat format["Spawned %1 Groups",(count _Groups)];};
+
+/*
+
+//----------------------------------------------------REINFORCEMENTS---------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if (_reinforcements) then {			
+
+	_callReinforcements = createTrigger ["EmptyDetector",_markerPosition]; 
+	_callReinforcements setTriggerArea [_radiusPlacement + 30,_radiusPlacement +30 ,0,false]; 
+	_callReinforcements setTriggerActivation [_detectionSide,"PRESENT",true]; 
+	_callReinforcements setTriggerStatements ["this","",""]; 
+	_callReinforcements setTriggerType "NONE";
+	_callReinforcements;
+
+		Waituntil {triggeractivated _callReinforcements};
+
+//----------------------------------------------------FIND SUITABLE SPAWN LOCATION-------------------------------------------------------
+			_reinforcementLocation = [_markerPosition, _reinforcementPlacement, random 360] call BIS_fnc_relPos;
+			_spawnFinder = true;
+			_spotter = true;
+			sleep 0.3;
+
+while {_spotter} do {
+	while {_spawnFinder} do {
+
+		if (surfaceIsWater _reinforcementLocation) then 
+							{_reinforcementLocation = [_markerPosition, _reinforcementPlacement, random 360] call BIS_fnc_relPos;} 
+					  		else 
+							{_spawnFinder = false;};
+				Sleep 0.5;};
+
+		if (_debugHint) then {Hint "Ready to spawn Reinforcements";};
+
+			_hideReinforcementSpawn = createTrigger ["EmptyDetector",_reinforcementLocation]; 
+			_hideReinforcementSpawn setTriggerArea [150,150,0,true]; 
+			_hideReinforcementSpawn setTriggerActivation [_detectionSide,"PRESENT",true]; 
+			_hideReinforcementSpawn setTriggerStatements ["this","",""]; 
+			_hideReinforcementSpawn setTriggerType "NONE"; 
+			_hideReinforcementSpawn;
+sleep 1;
+
+if (isServer) then {
+			if (triggeractivated _hideReinforcementSpawn) then {
+
+					if (_debugHint) then {Hint "Area not suitable for spawning";};
+					_reinforcementLocation = [_markerPosition, _reinforcementPlacement, random 360] call BIS_fnc_relPos;
+					} else {
+
+//----------------------------------------------------SPAWN REINFORCEMENTS WITH WAYPOINT-------------------------------------------------------
+						_spotter = false;
+//						_heavyType = _heavyInfantry select (floor(random(count _heavyInfantry)));
+						_reinforcingPatrol = _this select 1;
+    			
+						sleep 0.1;
+						_reinforcingPatrol = [_spwnposNew, _sideAdjust, _heavyPatrolUnits,[],[],[0.25,0.4]]call BIS_fnc_spawnGroup;
+				
+						//_reinforcingPatrol setBehaviour "COMBAT";
+						nul=[(leader _reinforcingPatrol),_mkrname,"SPAWNED","MOVE","SHOWMARKER","NOSLOW","DELETE:",60] execVM "scripts\UPSMON.sqf";
+
+						//_getToMarker = _reinforcingPatrol addWaypoint [_markerPosition, 0];
+						//_getToMarker setWaypointType "MOVE";
+						//_getToMarker setWaypointSpeed "FULL";
+						//_getToMarker setWaypointBehaviour "AWARE"; 
+						//_getToMarker setWaypointFormation "COLUMN";
+						
+ 						if (_debugHint) then {player sidechat format["Reinforcements %1 heading to %2",_heavyType,_mkrName]};
+						};
+			Sleep 0.3;};
+		};//isserver
+
+if (_debugHint) then {
+			hint "Spawning reinforcements";
+			_unique = 0;
+			_unique = _unique + (_reinforcementLocation select 0);
+			
+			//_debugMarker = createMarker [format["%1",_unique], _reinforcementLocation];
+			//_debugMarker setMarkerType "hd_dot";
+			//_debugMarker setMarkerColor "colorRed";
+			//_debugMarker setMarkerPos _reinforcementLocation;
+			//_debugMarker setMarkerText "reinforcements";
+			
+			};
+		} else { 
+		if (_debugHint) then {Hint "Reinforcement Module skipped";};
+			};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+*/
+
+//----------------------------------------------------CACHE UNITS-----------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			_spotFriendlyLeaving = createTrigger ["EmptyDetector",_markerPosition]; 
+			_spotFriendlyLeaving setTriggerArea [_cacheDistanceY,_cacheDistanceX,0,true]; 
+			_spotFriendlyLeaving setTriggerActivation [_detectionSide,"NOT PRESENT",true]; 
+			_spotFriendlyLeaving setTriggerStatements ["this","",""]; 
+			_spotFriendlyLeaving setTriggerType "NONE"; 
+			_spotFriendlyLeaving;
+			sleep 1;
+		
+		Waituntil {triggeractivated _spotFriendlies};	
+		while {true} do {		
+				if (triggeractivated _spotFriendlyLeaving) then {
+					if (_debugHint) then {player sidechat format["EOS Leaving %1",_mkrName];};
+					if (_debugHint) then {player sidechat format["Deleting %1 groups in %2",(count _Groups),_mkrName];};
+					
+					{deleteVehicle _x} forEach (_crewTanks);
+					{deleteVehicle _x} forEach (_Tanks);
+										
+					{
+					{deleteVehicle _x} forEach units _x;
+					deleteGroup _x;
+					} forEach _Groups;
+					
+					{deleteVehicle _x} forEach (_Tanks);
+					{deleteVehicle _x} forEach (_crewTanks);
+					
+					} else {										
+
+							if (triggeractivated _spotEnemies) then {
+									sleep 0.5;_mkrname setMarkerColor "ColorGreen";
+							} else {
+									_mkrname setMarkerColor "ColorRed";
+							};
+							
+					};
+								
+				if (triggeractivated _spotFriendlyLeaving) exitWith{};
+				sleep 1;
+
+	};
+
+if (triggeractivated _spotEnemies) then {
+
+			if (_debugHint) then {player Sidechat format ["Script ended in %1. No more AI will spawn here",_mkrName];};
+			
+			
+			} else {
+			
+			if (_debugHint) then {player Sidechat format [str(_this) + " Restarting EOS in ",_mkrName];};
+			
+			nul = _this execvm "scripts\grooEOS.sqf";
+};
+
+if (_debugHint) then {player Sidechat format ["Deleting EOS markers in ",_mkrName];};
+deleteVehicle _spotFriendlies;deleteVehicle _spotFriendlyLeaving;deleteVehicle _spotEnemies;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////END SCRIPT////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		

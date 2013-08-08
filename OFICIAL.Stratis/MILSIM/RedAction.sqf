@@ -1,0 +1,2 @@
+RedBox addAction ["<t color='#FF0000'>" + "Red Team Uniforms" + "</t>","",("Red Team Uniforms")];
+RedBox addAction ["<t color='#FFFFFF'>" + "Tripulante" + "</t>","MILSIM\gears\red.sqf",("Tripulante")];
