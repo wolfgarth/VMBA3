@@ -18,10 +18,7 @@
 	"KRON_UPS_EAST_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[east] execvm "scripts\UPSMON\MON_surrended.sqf";};};
 	"KRON_UPS_WEST_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[west] execvm "scripts\UPSMON\MON_surrended.sqf";};};
 	"KRON_UPS_GUER_SURRENDED" addPublicVariableEventHandler { if (_this select 1) then { nul=[resistance] execvm "scripts\UPSMON\MON_surrended.sqf";};};
-	"MON_LOCAL_EXEC" addPublicVariableEventHandler { if (local ((_this select 1)select 0)) then { 
-	call ( compile format[(_this select 1)select 1,(_this select 1)select 0] );
-		};
-	};
+	"MON_LOCAL_EXEC" addPublicVariableEventHandler { if (local ((_this select 1)select 0)) then { call ( compile format[(_this select 1)select 1,(_this select 1)select 0] );};};  // Not Used Anywhere ???
 
 if (!isServer) exitWith {};
 
@@ -42,7 +39,7 @@ R_WHO_IS_CIV_KILLER_INFO = 0;
 
 
 // if you are spotted by AI group, how close the other AI group have to be to You , to be informed about your present position. over this, will lose target
-KRON_UPS_sharedist = 600;
+KRON_UPS_sharedist = 800;
 
 // If enabled IA communication between them with radio defined sharedist distance, 0/2 
 // (must be set to 2 in order to use reinforcement !R)
@@ -56,10 +53,13 @@ KRON_UPS_Res_enemy = [west,east];
 KRON_UPS_searchVehicledist = 600; // 700, 900  
 
 //Enables or disables AI to use static weapons
-KRON_UPS_useStatics = false;
+KRON_UPS_useStatics = true;
 
 //Enables or disables AI to put mines if armoured enemies near
-KRON_UPS_useMines = false;
+KRON_UPS_useMines = true;
+
+//Group formations
+KRON_UPS_groupFormation	= ["COLUMN","STAG COLUMN","WEDGE","ECH LEFT","ECH RIGHT","VEE","LINE","FILE","DIAMOND"];	//Group formations
 
 //------------------------------------------------------------------------------------------------------------------------------
 //        These Variables can be changed if needed but it is not necessary.
@@ -80,10 +80,10 @@ KRON_UPS_GUER_SURRENDER = 0;
 
 // knowsAbout 0.5 1.03 , 1.49 to add this enemy to "target list" (1-4) the higher number the less detect ability (original in 5.0.7 was 0.5)
 // it does not mean the AI will not shoot at you. This means: what must be knowsAbout you to UPSMON adds you to the list of targets (UPSMON list of target) 
-R_knowsAboutEnemy = 1.03;
+R_knowsAboutEnemy = 0.5;
 
 // units will react (change the beahaviour) when dead bodies found 
-R_deadBodiesReact = false;  // true OR flase
+R_deadBodiesReact = false;  // true OR false
 
 // ---------------------------------------------------------------------------------------------------------------------
 //      Better do not change these variables if you aren't sure !R
@@ -129,7 +129,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	R_GOTHIT_ARRAY =[0];
 	AcePresent = isClass(configFile/"CfgPatches"/"ace_main");
-	UPSMON_Version = "UPSMON 5.1.0 beta1";
+	UPSMON_Version = "UPSMON 5.0.9";
 	KILLED_CIV_COUNTER = [0,0,0,0,0];
 	KRON_UPS_flankAngle = 45; //Angulo de flanqueo
 	KRON_UPS_INIT = 0;        //Variable que indica que ha sido inicializado
@@ -150,7 +150,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
 	KRON_targets2 =[];//resistence	
 	KRON_targetsPos =[];//Posiciones de destino actuales.
 	KRON_NPCs = []; //Lideres de los grupos actuales	
-	KRON_UPS_Instances=0;
+	KRON_UPS_Instances=-1;
 	KRON_UPS_Total=0;
 	KRON_UPS_Exited=0;
 	KRON_UPS_East_Total = 0;
@@ -161,8 +161,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
 	KRON_UPS_ARTILLERY_EAST_TARGET = objnull;
 	KRON_UPS_ARTILLERY_GUER_TARGET = objnull;
 	KRON_UPS_TEMPLATES = [];
-	KRON_UPS_MG_WEAPONS = ["MG36","M249","M240","MK_48","PK","PKm","Pecheneg","M249 Para","M249 Para M145","M240G M145","M60","BAF_L110A1_Aim","LMG_Mk200_F","arifle_MX_SW_F"];
-	
+	KRON_UPS_MG_WEAPONS = ["LMG_Mk200_F","arifle_MX_SW_F","LMG_Zafir_F"];
 	
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -199,7 +198,10 @@ KRON_UPS_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
 		
 		KRON_getDirPos = {private["_a","_b","_from","_to","_return"]; _from = _this select 0; _to = _this select 1; _return = 0; _a = ((_to select 0) - (_from select 0)); _b = ((_to select 1) - (_from select 1)); if (_a != 0 || _b != 0) then {_return = _a atan2 _b}; if ( _return < 0 ) then { _return = _return + 360 }; _return};
 		KRON_distancePosSqr = {round(((((_this select 0) select 0)-((_this select 1) select 0))^2 + (((_this select 0) select 1)-((_this select 1) select 1))^2)^0.5)};
-		KRON_relPos = {private["_p","_d","_a","_x","_y","_xout","_yout"];_p=_this select 0; _x=_p select 0; _y=_p select 1; _d=_this select 1; _a=_this select 2; _xout=_x + sin(_a)*_d; _yout=_y + cos(_a)*_d;[_xout,_yout,0]};
+
+//		KRON_relPos = {private["_p","_d","_a","_x","_y","_xout","_yout"];_p=_this select 0; _x=_p select 0; _y=_p select 1; _d=_this select 1; _a=_this select 2; _xout=_x + sin(_a)*_d; _yout=_y + cos(_a)*_d;[_xout,_yout,0]};
+		KRON_relPos = {private["_p","_d","_a","_xx","_yy","_xout","_yout"];_p=_this select 0; _xx=_p select 0; _yy=_p select 1; _d=_this select 1; _a=_this select 2; _xout=_xx + sin(_a)*_d; _yout=_yy + cos(_a)*_d;[_xout,_yout,0]}; 
+
 		KRON_rotpoint = {private["_cp","_a","_tx","_ty","_cd","_sd","_cx","_cy","_xout","_yout"];_cp=_this select 0; _cx=_cp select 0; _cy=_cp select 1; _a=_this select 1; _cd=cos(_a*-1); _sd=sin(_a*-1); _tx=_this select 2; _ty=_this select 3; _xout=if (_a!=0) then {_cx+ (_cd*_tx - _sd*_ty)} else {_cx+_tx}; _yout=if (_a!=0) then {_cy+ (_sd*_tx + _cd*_ty)} else {_cy+_ty}; [_xout,_yout,0]};
 		KRON_stayInside = {
 			private["_np","_nx","_ny","_cp","_cx","_cy","_rx","_ry","_d","_tp","_tx","_ty","_fx","_fy"];
@@ -234,8 +236,7 @@ KRON_UPS_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
 			_list};
 		KRON_deleteDead = {private["_u","_s"];_u=_this select 0; _s= _this select 1; _u removeAllEventHandlers "killed"; sleep _s; deletevehicle _u};
 
-
-		// Set BIS_fnc_setVehicleInit. Replaces setVehicleInit  This is taken from MCC Controls Mission with permission from shay_gman
+		// Set BIS_fnc_setVehicleInit. Replaces setVehicleInit.  This is taken from MCC Controls Mission with permission from shay_gman
 //==================================================================MCC_fnc_setVehicleInit======================================================================================
 // Sets vehicle init.
 // Example: [[netID _unit, _init], "MCC_fnc_setVehicleInit", true, true] spawn BIS_fnc_MP;
@@ -366,71 +367,71 @@ MCC_fnc_setVehicleName =
 				_targets0 = [];
 				_targets1 = [];
 				_targets2 = [];
-				{
-					if (!isNil _x) then {
-							if (!isnull _x ) then {
-							
-								if (alive _x && !captive _x ) then {	
-								_npc = _x;								
-								_targets = [];
 
-								switch (side _npc) do {
-									//West targets
-									case west: {
-										_sharedenemy = 0;
-										_enemyside = [east];
-									};
-									//East targets
-									case east: {
-										_sharedenemy = 1;
-										_enemyside = [west];
-									};
-									//Resistance targets
-									case resistance: {								
-										_sharedenemy = 2;
-										_enemyside = KRON_UPS_Res_enemy;
-									};
-								};		
-								
-								if (side _npc in KRON_UPS_Res_enemy) then {
-									_enemyside = _enemyside + [resistance];
-								};
-								
-								//Gets known targets on each leader for comunicating enemy position
-								//Has better performance with targetsquery
-								//_targets = _npc nearTargets KRON_UPS_sharedist;		
-								_targets = _npc targetsQuery ["","","","",""];
-								
-								{
-									//_target = _x select 4;      //Neartargets
-									_target = _x select 1;        //Targetsquery							
-									if ( side _target in _enemyside ) then {																									
-									// if (KRON_UPS_Debug>0) then {player globalchat format["%1: knows about %2, enemies=%3",_npc getVariable ("UPSMON_grpid"),_npc knowsabout _target, _npc countEnemy _targets ]};
-															
-										if (!isnull _target && alive _target && canmove _target && !captive _target && _npc knowsabout _target > R_knowsAboutEnemy
-											&& ( _target iskindof "Land" || _target iskindof "Air" || _target iskindof "Ship" )
-											&& !( _target iskindof "Animal")
-											&& ( _target emptyPositions "Gunner" == 0 && _target emptyPositions "Driver" == 0 
-												|| (!isnull (gunner _target) && canmove (gunner _target))
-												|| (!isnull (driver _target) && canmove (driver _target))) 									
-										) then {
-											//Saves last known position	
-											//_knownpos = _x select 0;	//Neartargets							
-											_knownpos = _x select 4;//Targetsquery
-											_target setvariable ["UPSMON_lastknownpos", _knownpos, false];									
-											// _npc setVariable ["R_knowsAboutTarget", true, false];	  // !R								
-											
-											call (compile format ["_targets%1 = _targets%1 - [_target]",_sharedenemy]);
-											call (compile format ["_targets%1 = _targets%1 + [_target]",_sharedenemy]);						
-										};	
-									};
-								sleep 0.01;	
-								} foreach _targets;							
-							};	
+//				{
+//					if (!isnull _x && alive _x && !captive _x ) then {	
+//						_npc = _x;								
+//						_targets = [];
+//						
+				{		
+                    if ( _forEachIndex > 0 && {!isnull _x} && {alive _x} && {!captive _x} ) then {    
+                        _npc = _x;                                
+                        _targets = [];  						
 
+						switch (side _npc) do {
+							//West targets
+							case west: {
+								_sharedenemy = 0;
+								_enemyside = [east];
+							};
+							//East targets
+							case east: {
+								_sharedenemy = 1;
+								_enemyside = [west];
+							};
+							//Resistance targets
+							case resistance: {								
+								_sharedenemy = 2;
+								_enemyside = KRON_UPS_Res_enemy;
+							};
+						};		
+						
+						if (side _npc in KRON_UPS_Res_enemy) then {
+							_enemyside = _enemyside + [resistance];
 						};
-							sleep 0.01;				
-					};
+						
+						//Gets known targets on each leader for comunicating enemy position
+						//Has better performance with targetsquery
+						//_targets = _npc nearTargets KRON_UPS_sharedist;		
+						_targets = _npc targetsQuery ["","","","",""];
+						
+						{
+							//_target = _x select 4;      //Neartargets
+							_target = _x select 1;        //Targetsquery							
+							if ( side _target in _enemyside ) then {																									
+							// if (KRON_UPS_Debug>0) then {player globalchat format["%1: knows about %2, enemies=%3",_npc getVariable ("UPSMON_grpid"),_npc knowsabout _target, _npc countEnemy _targets ]};
+													
+								if (!isnull _target && alive _target && canmove _target && !captive _target && _npc knowsabout _target > R_knowsAboutEnemy
+									&& ( _target iskindof "Land" || _target iskindof "Air" || _target iskindof "Ship" )
+									&& !( _target iskindof "Animal")
+									&& ( _target emptyPositions "Gunner" == 0 && _target emptyPositions "Driver" == 0 
+										|| (!isnull (gunner _target) && canmove (gunner _target))
+										|| (!isnull (driver _target) && canmove (driver _target))) 									
+								) then {
+									//Saves last known position	
+									//_knownpos = _x select 0;	//Neartargets							
+									_knownpos = _x select 4;//Targetsquery
+									_target setvariable ["UPSMON_lastknownpos", _knownpos, false];									
+									// _npc setVariable ["R_knowsAboutTarget", true, false];	  // !R								
+									
+									call (compile format ["_targets%1 = _targets%1 - [_target]",_sharedenemy]);
+									call (compile format ["_targets%1 = _targets%1 + [_target]",_sharedenemy]);						
+								};	
+							};
+						sleep 0.01;	
+						}foreach _targets;							
+					};					
+					sleep 0.01;				
 				}foreach KRON_NPCs;												
 				
 				//Share targets
@@ -463,7 +464,7 @@ MCC_fnc_setVehicleName =
 					};		
 					
 					_timeout = _arti getVariable ("timeout");
-					
+					if (isnil "_timeout") then {_timeout = 0};
 					if (!isnull (gunner _arti) && canmove (gunner _arti) && (time >= _timeout)) then {
 						_side = side gunner _arti;
 						_fire = call (compile format ["KRON_UPS_ARTILLERY_%1_FIRE",_side]);					
@@ -609,11 +610,10 @@ MCC_fnc_setVehicleName =
 	
 	
 // ---------------------------------------------------------------------------------------------------------
-//processInitCommands;
 
 //Executes de main process of server
 [] SPAWN MON_MAIN_server;
 
 diag_log "--------------------------------";
 diag_log (format["UPSMON started"]);
-if(true) exitWith {}; 
+if(true) exitWith {};

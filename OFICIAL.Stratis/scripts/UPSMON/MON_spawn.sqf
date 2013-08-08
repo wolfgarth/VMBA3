@@ -19,7 +19,7 @@
 		nul = [1,[0,0,0],3,[mark, upsmon optional params]] EXECVM "SCRIPTS\UPSMON\MON_SPAWN.SQF";		
  =====================================================================================================*/
 //if (!isserver) exitWith {}; 
-if !( isServer || MCC_isLocalHC ) exitWith {};
+if (!isServer) exitWith {};
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};

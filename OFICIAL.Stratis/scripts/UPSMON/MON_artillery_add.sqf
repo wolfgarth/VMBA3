@@ -28,7 +28,8 @@
 	For more info:
 	http://dev-heaven.net/projects/upsmon/wiki/Artillery_module
  =====================================================================================================*/
-if (!isserver) exitWith {}; 
+//if (!isserver) exitWith {}; 
+if (!isServer) exitWith {};
 
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};
@@ -41,7 +42,7 @@ _maxcadence = 10;
 _mincadence = 5;
 _sleep = 0;
 _rounds = 1;
-_bullet = "ARTY_Sh_81_HE";	
+_bullet = "Sh_82mm_AMOS";	
 _vector =[];
 _salvobreak = 10;
 
