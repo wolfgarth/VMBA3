@@ -5,7 +5,7 @@ if ((!isServer) && (player != player)) then
 
 //VAR
 _missionName = "MILSIM Template";
-_missionVersion = "0.1";
+_missionVersion = "0.12";
 
 //PARAMS
 PARAMEDITMODE = true;
@@ -18,9 +18,12 @@ call compile preprocessFileLineNumbers "groo\groo_init.sqf";
 if PARAMEDITMODE then {
 	player allowDamage false;
 	onMapSingleClick "player setpos _pos";
-	["INFO: Edit mode Enabled - Player Damage Disabled - Mapclick Teleport Enabled","blue"] spawn groo_fnc_consoleMSG;
+	["INFO: Edit mode Enabled - Player Damage Disabled - Mapclick Teleport Enabled","green"] spawn groo_fnc_consoleMSG;
 };
 
+// Group Maneagement Script
+["INFO: Group Maneagement Script Enabled","green"] spawn groo_fnc_consoleMSG;
+[player] execVM "scripts\groupsMenu\initGroups.sqf";
 
 ["INFO: Mission Init Finished","green"] spawn groo_fnc_consoleMSG;
 
