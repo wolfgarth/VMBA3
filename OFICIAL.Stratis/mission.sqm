@@ -102,6 +102,7 @@ class Mission
 					id=0;
 					side="WEST";
 					vehicle="B_Soldier_F";
+					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
 					text="cameraman";
