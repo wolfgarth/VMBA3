@@ -7,13 +7,17 @@ This is intended for community use only and third-party scripts have credits in 
 Features:
 - Server Console Functions
 - Editing Mode with no Damage and Map Click Teleport
+- MILSIM LoadOut Dialog
+- MILSIM Squads Template
 
 Planned Features:
-- MILSIM Squads Template
+
 - MILSIM Vehicles Template
-- MILSIM LoadOut Dialog
 
 Changelog:
+
+0.11 - Included MILSIM Squads
+	 - Initial Version of Loadout Menu working
 
 0.1 - Server console function added from Groo Framwork
 	- Editing Mode with no Damage and Map Click Teleport
