@@ -8,7 +8,7 @@ _missionName = "MILSIM Template";
 _missionVersion = "0.12";
 
 //PARAMS
-PARAMEDITMODE = true;
+PARAMEDITMODE = false;
 
 // Init Groo Framework Scripts
 call compile preprocessFileLineNumbers "groo\groo_init.sqf";
@@ -22,6 +22,8 @@ if PARAMEDITMODE then {
 	["INFO: Edit mode Enabled - Player Damage Disabled - Mapclick Teleport Enabled","green"] spawn groo_fnc_consoleMSG;
 };
 
+// TAW Viewdistance
+[] execVM "taw_vd\init.sqf";
 // MILSIM LoadOut Script
 player addAction ["<t color='#0000FF'>" + "MILSIM LoadOut Menu" + "</t>","MILSIM\dialog\LoadOutMenu.sqf",[],10,false,false,"","_this distance MILSIMBox < 20"];
 

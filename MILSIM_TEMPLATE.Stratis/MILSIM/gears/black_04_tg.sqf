@@ -14,41 +14,41 @@ removeallcontainers _unit;
 _unit addUniform "MILSIM_BDU";
 _unit addvest "BLACKTEAM_VEST";
 _unit addHeadgear "BlackTeam_Helmet_A04"; 
-_unit addbackpack "BlackTeam_BP_EOD";
+_unit addbackpack "BlackTeam_BP_EOD_base";
 
 _unit addmagazine "30rnd_556x45_Stanag";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
 _unit addmagazine "16Rnd_9x21_Mag";
 
-_unit addWeapon "AR_BlackTeam_SOPMOD";
+_unit addWeapon "FHQ_M4A1_M203_BLK";
 _unit addWeapon "hgun_P07_F";
 _unit addHandgunItem "muzzle_snds_L";
 
 _unit addWeapon "rangefinder";
+
 _unit addmagazine "SatchelCharge_Remote_Mag";
 _unit addmagazine "DemoCharge_Remote_Mag";
 _unit addmagazine "DemoCharge_Remote_Mag";
 _unit addmagazine "DemoCharge_Remote_Mag";
+_unit addmagazine "DemoCharge_Remote_Mag";
+
 _unit addmagazine "APERSMine_Range_Mag";
 _unit addmagazine "APERSMine_Range_Mag";
 _unit addmagazine "APERSMine_Range_Mag";
 _unit addmagazine "APERSMine_Range_Mag";
+
 _unit addmagazine "HandGrenade";
 _unit addmagazine "HandGrenade";
 _unit addmagazine "HandGrenade";
 _unit addmagazine "HandGrenade";
 _unit addmagazine "HandGrenade";
 _unit addmagazine "HandGrenade";
-_unit addmagazine "HandGrenade";
-_unit addmagazine "HandGrenade";
-_unit addmagazine "HandGrenade";
-_unit addmagazine "HandGrenade";
+
 _unit addmagazine "SmokeShell";
 _unit addmagazine "SmokeShell";
-_unit addmagazine "SmokeShell";
-_unit addmagazine "SmokeShell";
+
 _unit addmagazine "SmokeShellOrange";
-_unit addmagazine "SmokeShellOrange";
+
 _unit addmagazine "REV1_flash";
 _unit addmagazine "REV1_flash";
 _unit addmagazine "REV1_flash";
@@ -57,6 +57,7 @@ _unit addmagazine "REV1_flash";
 _unit addmagazine "REV1_flash";
 _unit addmagazine "REV1_flash";
 _unit addmagazine "REV1_flash";
+
 _unit addmagazine "30rnd_556x45_Stanag";
 _unit addmagazine "30rnd_556x45_Stanag";
 _unit addmagazine "30rnd_556x45_Stanag";
@@ -66,16 +67,22 @@ _unit addmagazine "30rnd_556x45_Stanag";
 _unit addmagazine "30rnd_556x45_Stanag";
 _unit addmagazine "30rnd_556x45_Stanag";
 _unit addmagazine "30rnd_556x45_Stanag";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
-//_unit addmagazine "1Rnd_HE_Grenade_shell";
+
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+_unit addmagazine "1Rnd_HE_Grenade_shell";
+
 _unit addmagazine "16Rnd_9x21_Mag";
 _unit addmagazine "16Rnd_9x21_Mag";
 _unit addmagazine "16Rnd_9x21_Mag";
@@ -90,15 +97,20 @@ _unit additem "ItemCompass";
 _unit assignItem "ItemCompass";
 _unit additem "ItemWatch";
 _unit assignItem "ItemWatch";
+
 _unit addItem "ACRE_PRC343_ID_13";
 _unit assignItem "ACRE_PRC343_ID_13";
 _unit addItem "ACRE_PRC148_UHF_ID_11";
+
 _unit addItem "MineDetector";
 _unit addItem "ToolKit";
+
 _unit addItem "FirstAidKit";
 _unit addItem "FirstAidKit";
 _unit addItem "FirstAidKit";
 _unit addItem "FirstAidKit";
+_unit addItem "FirstAidKit";
+
 _unit additem "acc_flashlight";
 _unit addGoggles "G_Tactical_Black";
 

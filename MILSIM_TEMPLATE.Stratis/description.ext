@@ -1,7 +1,7 @@
 // MILSIM LOADOUT MENU
 #include "MILSIM\dialog\defines.hpp"
 #include "MILSIM\dialog\dialog.hpp"
-//--
+
 //-------------------------------------------LOADING INFO--------------------------------------------------------------------
 		author = "Virtual Milsim Editing Team"; 
 		onLoadName = "MILSIM Template"; 
@@ -25,29 +25,8 @@ class Header
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	respawn = "BASE";
 	respawndelay = 10;
-class RscTitles 
-{
-	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"
-};
+// Include for TAW Viewdistance Script
+#include "taw_vd\dialog.hpp"
 
 // Include for NORRN_cam
 #include "NORRN_cam\NORRN_cam_dialog.hpp"
-class Params
-{
-        class ShowIntro
-        {
-        //paramsArray[2]
-                title = "Show Intro";
-                values[] = {1,0};
-                texts[] = {"ENABLED","DISABLED"};
-                default = 1;
-        };
-		class TestMode
-        {
-        //paramsArray[3]
-                title = "TestMode";
-                values[] = {0,1};
-                texts[] = {"ENABLED","DISABLED"};
-                default = 0;
-        };
-};
