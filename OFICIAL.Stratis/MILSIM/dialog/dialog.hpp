@@ -49,7 +49,7 @@ class MILSIM_LoadOutMenu {
 				y = 0.164 * safezoneH + safezoneY;
 				w = 0.095 * safezoneW;
 				h = 0.032 * safezoneH;
-				Action = "[] call MILSIM_fnc_LoadOutMenu_FillClasses";
+				Action = "[] call MILSIM_fnc_LoadOutMenu_FillClasses;";
 			};
 			class lst_MILSIM_LoadOutMenu_classes: RscListbox
 			{

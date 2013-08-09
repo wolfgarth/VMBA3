@@ -30,7 +30,8 @@ class Mission
 		"acre_sys_antenna",
 		"A3_Air_F_Beta_Heli_Attack_01",
 		"A3_armor_f_beta_APC_Tracked_02",
-		"A3_Armor_F_Panther"
+		"A3_Armor_F_Panther",
+		"A3_Signs_F"
 	};
 	addOnsAuto[]=
 	{
@@ -61,12 +62,13 @@ class Mission
 		"A3_Armor_F_Panther",
 		"milsim_units",
 		"acre_sys_radio",
+		"A3_Signs_F",
 		"a3_map_stratis"
 	};
 	randomSeed=8776283;
 	class Intel
 	{
-		briefingName="Operacao SOCRATES 2.0";
+		briefingName="Operacao SOCRATES 2.3";
 		overviewText="A alguns dias o Comandante do I.S.A (INDEPENDENT STRATIS ARMY)tomou a ilha com um golpe de estado. Não podemos perder essa enorme fonte de recursos. O alto comando convocou o TATICAL TEAM [MILSIM] para retomar a ilha por ser o grupo mais eficaz em combate. Partindo do posto de infiltrado ao Sul de Stratis,nossas tropas devem romper as linhas inimigas para sabotar os suprimentos de armamento do inimigo e eliminar o comando do I.S.A";
 		resistanceEast=1;
 		startWeather=0.25;
@@ -102,11 +104,10 @@ class Mission
 					id=0;
 					side="WEST";
 					vehicle="B_Soldier_F";
-					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
 					text="cameraman";
-					init="if false then {[] execVM ""camera.sqs"";};if true then {[] execVM ""scene.sqf"";}; this setcaptive true; this allowdamage false;";
+					init="if false then {[] execVM ""camera.sqs"";};if FALSE then {[] execVM ""scene.sqf"";}; this setcaptive true; this allowdamage false;";
 				};
 			};
 		};
@@ -243,7 +244,7 @@ class Mission
 					rank="COLONEL";
 					skill=1;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
-					description="Team Black 03";
+					description="Black 03";
 				};
 				class Item3
 				{
@@ -287,12 +288,12 @@ class Mission
 				};
 				class Item6
 				{
-					position[]={2634.7866,65.043213,651.04468};
+					position[]={2634.8494,65.050652,650.8728};
 					azimut=224.847;
 					special="NONE";
 					id=15;
 					side="WEST";
-					vehicle="B_recon_medic_F";
+					vehicle="B_recon_LAT_F";
 					player="PLAY CDG";
 					skill=1;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
@@ -328,6 +329,7 @@ class Mission
 					id=17;
 					side="WEST";
 					vehicle="B_Helipilot_F";
+					player="PLAY CDG";
 					leader=1;
 					rank="MAJOR";
 					skill=0.60000002;
@@ -358,7 +360,7 @@ class Mission
 				items=3;
 				class Item0
 				{
-					position[]={2613.4377,64.641632,649.60669};
+					position[]={2612.9768,64.635704,650.4187};
 					azimut=-214.817;
 					special="NONE";
 					id=19;
@@ -373,26 +375,24 @@ class Mission
 				};
 				class Item1
 				{
-					position[]={2612.5671,64.622284,650.77795};
+					position[]={2612.1062,64.616356,651.58997};
 					azimut=-214.817;
 					special="NONE";
 					id=20;
 					side="WEST";
 					vehicle="B_crew_F";
-					player="PLAY CDG";
 					skill=0.60000002;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
 					description="Red Team Crewman";
 				};
 				class Item2
 				{
-					position[]={2611.7219,64.566727,650.15759};
+					position[]={2611.261,64.565407,650.9696};
 					azimut=-214.817;
 					special="NONE";
 					id=21;
 					side="WEST";
 					vehicle="B_crew_F";
-					player="PLAY CDG";
 					skill=0.60000002;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
 					description="Red Team Crewman";
@@ -407,7 +407,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={2611.7786,64.522453,648.14355};
+					position[]={2611.3176,64.522499,648.95557};
 					azimut=-214.817;
 					special="NONE";
 					id=22;
@@ -430,7 +430,7 @@ class Mission
 				items=3;
 				class Item0
 				{
-					position[]={2612.5859,64.579735,648.84338};
+					position[]={2612.125,64.573807,649.6554};
 					azimut=-214.817;
 					special="NONE";
 					id=23;
@@ -445,26 +445,24 @@ class Mission
 				};
 				class Item1
 				{
-					position[]={2610.8604,64.516418,649.54895};
+					position[]={2610.3994,64.515099,650.36096};
 					azimut=-214.817;
 					special="NONE";
 					id=24;
 					side="WEST";
 					vehicle="B_crew_F";
-					player="PLAY CDG";
 					skill=0.60000002;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
 					description="Red Team Crewman";
 				};
 				class Item2
 				{
-					position[]={2609.9749,64.450989,649.0625};
+					position[]={2609.5139,64.455811,649.87451};
 					azimut=-214.817;
 					special="NONE";
 					id=25;
 					side="WEST";
 					vehicle="B_crew_F";
-					player="PLAY CDG";
 					skill=0.60000002;
 					init="null = [this] execVM ""MILSIM\defaultloadout.sqf"";";
 					description="Red Team Crewman";
@@ -479,7 +477,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={2610.9126,64.438103,647.51544};
+					position[]={2610.4517,64.450195,648.32745};
 					azimut=-214.817;
 					special="NONE";
 					id=26;
@@ -1101,7 +1099,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=214;
+		items=216;
 		class Item0
 		{
 			position[]={2666.0593,63.882401,626.4552};
@@ -1110,6 +1108,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_Heli_Transport_01_F";
 			skill=0.60000002;
+			text="h2";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item1
@@ -1120,6 +1119,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_MRAP_01_hmg_F";
 			skill=0.60000002;
+			text="v2";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item2
@@ -1130,6 +1130,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_MRAP_01_gmg_F";
 			skill=0.60000002;
+			text="v1";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item3
@@ -2961,6 +2962,7 @@ class Mission
 			vehicle="Land_HelipadSquare_F";
 			leader=1;
 			skill=0.60000002;
+			text="h1";
 		};
 		class Item186
 		{
@@ -2980,6 +2982,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_APC_Wheeled_01_cannon_F";
 			skill=0.60000002;
+			text="a2";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item188
@@ -2999,6 +3002,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_APC_Wheeled_01_cannon_F";
 			skill=0.60000002;
+			text="a1";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item190
@@ -3090,6 +3094,7 @@ class Mission
 			side="EMPTY";
 			vehicle="B_Heli_Attack_01_F";
 			skill=0.60000002;
+			text="h3";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item200
@@ -3190,21 +3195,23 @@ class Mission
 		class Item210
 		{
 			position[]={2610.6047,64.053421,625.45654};
-			azimut=-41.241268;
+			azimut=-41.241299;
 			id=280;
 			side="EMPTY";
 			vehicle="O_APC_Tracked_02_cannon_F";
 			skill=0.60000002;
+			text="a4";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item211
 		{
 			position[]={2619.0366,64.228302,616.03467};
-			azimut=-41.553787;
+			azimut=-41.553799;
 			id=281;
 			side="EMPTY";
 			vehicle="B_APC_Tracked_01_rcws_F";
 			skill=0.60000002;
+			text="a3";
 			init="0 = [this, 5] execVM ""scripts\vehicle_respawn.sqf"";";
 		};
 		class Item212
@@ -3229,10 +3236,30 @@ class Mission
 			skill=0.60000002;
 			init="this allowdamage false;";
 		};
+		class Item214
+		{
+			position[]={2612.2144,64.01545,671.86816};
+			azimut=26.6689;
+			id=284;
+			side="EMPTY";
+			vehicle="Land_HelipadSquare_F";
+			leader=1;
+			skill=0.60000002;
+		};
+		class Item215
+		{
+			position[]={2603.7495,64.184235,665.47021};
+			azimut=476.96619;
+			id=285;
+			side="EMPTY";
+			vehicle="Land_Sign_WarningMilitaryVehicles_F";
+			leader=1;
+			skill=0.60000002;
+		};
 	};
 	class Markers
 	{
-		items=94;
+		items=97;
 		class Item0
 		{
 			position[]={1924.4861,19.864199,2789.8667};
@@ -3845,7 +3872,7 @@ class Mission
 		};
 		class Item53
 		{
-			position[]={2615.0051,64.528175,641.35553};
+			position[]={2625.8486,64.864677,649.6524};
 			name="respawn_west";
 			type="Empty";
 			angle=232.18324;
@@ -4120,10 +4147,33 @@ class Mission
 			text="SafeRoute Established";
 			type="mil_arrow2";
 		};
+		class Item94
+		{
+			position[]={2630.5132,65.254333,645.25244};
+			name="mkrBASE";
+			text="Spartan MILSIM FOB";
+			type="mil_circle";
+		};
+		class Item95
+		{
+			position[]={2603.7283,64.182846,665.50586};
+			name="mkrRepairs";
+			text="Vehicle Service";
+			type="mil_box";
+			colorName="ColorBlue";
+		};
+		class Item96
+		{
+			position[]={2618.9656,64.695175,657.00293};
+			name="mkrRepairs_1";
+			text="Ammo Point";
+			type="mil_box";
+			colorName="ColorBlue";
+		};
 	};
 	class Sensors
 	{
-		items=6;
+		items=7;
 		class Item0
 		{
 			position[]={2018.5798,3.1861181,2721.5142};
@@ -4233,6 +4283,22 @@ class Mission
 			age="UNKNOWN";
 			expActiv="KRON_UPS_ARTILLERY_EAST_FIRE = true;";
 			expDesactiv="KRON_UPS_ARTILLERY_EAST_FIRE = false;";
+			class Effects
+			{
+			};
+		};
+		class Item6
+		{
+			position[]={2611.9639,64.019005,671.75977};
+			a=10;
+			b=10;
+			activationBy="ANY";
+			repeating=1;
+			interruptable=1;
+			age="UNKNOWN";
+			name="Servicepoint";
+			expCond="Public_Servicepoint == 0 and (thislist select 0) isKindOf ""Air"" or (thislist select 0) isKindOf ""LandVehicle"" and player == driver (thislist select 0)";
+			expActiv="_nul = [""Public_Servicepoint"", (thislist select 0), getPos Servicepoint,20,200,30,2,10,5] execVM ""gvs\generic_vehicle_service.sqf"";";
 			class Effects
 			{
 			};

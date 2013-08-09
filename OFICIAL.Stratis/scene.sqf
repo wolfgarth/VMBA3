@@ -4,7 +4,7 @@ _camera cameraeffect ["internal", "back"];
 
 playmusic "Overdose";
 
-titletext ["GROO FRAMEWORK\nFeatures:\nMonsada's UPSMON\nBangabob's EOS\nFHQ Task Tracker\n=BTC= Logistics\n=BTC= Revive\nZuff Group Management","PLAIN"];
+titletext ["GROO FRAMEWORK\nFeatures:\nMonsada's UPSMON\nBangabob's EOS\nFHQ Task Tracker\n=BTC= Logistics\n=BTC= Revive\nZuff Group Management\nJamac Vehicle Service","PLAIN"];
 
 ;comment "22:35:35";
 _camera camPrepareTarget [20135.24,92466.56,-35354.58];
@@ -64,7 +64,7 @@ _camera camPrepareFOV 0.490;
 _camera camCommitPrepared 8;
 waitUntil {camCommitted _camera;};
 
-titletext ["Special Thanks:\nLt.Godspeed\nCpl.Nascimento\nCpl.IronPack\nRc.Abreu\nFor support testing the mission.","PLAIN"];
+titletext ["Special Thanks:\nLt.Godspeed\nCdt.Nascimento\nCpl.IronPack\nRc.Abreu\nFor support testing the mission.","PLAIN"];
 
 ;comment "21:20:33";
 _camera camPrepareTarget [102176.81,-2204.58,1848.99];
@@ -78,8 +78,6 @@ _camera camPrepareTarget [-5521.71,104111.53,-9287.08];
 _camera camPreparePos [2925.04,4917.96,31.58];
 _camera camPrepareFOV 0.051;
 _camera camCommitPrepared 0;
-
-titletext ["VMB Editing Team\nWe tame Deamons!","PLAIN"];
 
 ;comment "21:24:36";
 _camera camPrepareTarget [-5521.71,104111.53,-9286.97];
@@ -95,7 +93,7 @@ _camera camPrepareFOV 0.090;
 _camera camCommitPrepared 10;
 waitUntil {camCommitted _camera;};
 
-titletext ["GOOD LUCK!","PLAIN"];
+titletext ["Prepare yourself...","PLAIN"];
 
 sleep 10;
 

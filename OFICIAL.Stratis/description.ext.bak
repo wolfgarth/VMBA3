@@ -23,7 +23,7 @@ class Header
 	};
 //-------------------------------------------RESPAWN SETTINGS----------------------------------------------------------------
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	respawn = "BASE";
+	respawn = "3";
 	respawndelay = 10;
 
 
@@ -43,6 +43,13 @@ class CfgMusic
    
 };
 
+// Include for TAW Viewdistance Script
+#include "taw_vd\dialog.hpp"
+
+//Include for BTC Revive
+#include "=BTC=_revive\=BTC=_respawn.h"
+
+// Include dor BTC logistics
 class RscTitles 
 {
 	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"

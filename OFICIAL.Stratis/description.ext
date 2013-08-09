@@ -2,6 +2,12 @@
 #include "MILSIM\dialog\defines.hpp"
 #include "MILSIM\dialog\dialog.hpp"
 //--
+// GVS Vehicle REPAIR
+#include "gvs\colors_include.hpp"
+#include "gvs\control_include.hpp"
+#include "gvs\stc_include.hpp"
+#include "gvs\sound_include.hpp"
+
 //-------------------------------------------LOADING INFO--------------------------------------------------------------------
 		author = "Virtual MilSim 3º Seção"; 
 		onLoadName = "Operação Socrates"; 
@@ -43,8 +49,17 @@ class CfgMusic
    
 };
 
+// Include for TAW Viewdistance Script
+#include "taw_vd\dialog.hpp"
+
+//Include for BTC Revive
+#include "=BTC=_revive\=BTC=_respawn.h"
+
+// Include dor BTC logistics
 class RscTitles 
 {
+	titles[]={};
+	#include "gvs\stc_displays.hpp"
 	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"
 };
 

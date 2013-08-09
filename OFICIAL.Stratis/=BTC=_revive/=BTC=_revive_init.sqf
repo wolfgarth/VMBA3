@@ -7,14 +7,15 @@ http://www.blacktemplars.altervista.org/
 */
 
 ////////////////// EDITABLE \\\\\\\\\\\\\\\\\\\\\\\\\\
-BTC_revive_time_min = 5;
-BTC_revive_time_max = 600;
-BTC_who_can_revive  = ["Man"];
+BTC_revive_time_min = 10;
+BTC_revive_time_max = 360;
+BTC_who_can_revive  = ["B_recon_medic_F","B_medic_F"];
 BTC_loop_check      = 0;
-BTC_disable_respawn = 0;
+BTC_disable_respawn = 1;
 BTC_respawn_gear    = 1;
-BTC_active_lifes    = 1;
-BTC_lifes           = 10;
+BTC_active_lifes    = 0;
+BTC_lifes           = 0;
+BTC_Revive_Limit	= 3;
 BTC_black_screen    = 0;//Black screen + button while unconscious or action wheel and clear view
 BTC_action_respawn  = 0;//if black screen is set to 0 you can choose if you want to use the action wheel or the button. Keep in mind that if you don't use the button, the injured player can use all the action, frag too....
 BTC_respawn_time    = 0;
@@ -23,19 +24,19 @@ BTC_mobile_respawn  = 0;//Active the mobile respawn fnc (1 = yes, 0 = no)
 BTC_mobile_respawn_time = 30;//Secs delay for mobile vehicle to respawn
 BTC_need_first_aid = 1;//You need a first aid kit to revive (1 = yes, 0 = no)
 BTC_pvp = 0; //(disable the revive option for the enemy)
-BTC_injured_marker = 1;
+BTC_injured_marker = 0;
 BTC_3d_can_see     = ["Man"];
 BTC_3d_distance    = 30;
 BTC_3d_icon_size   = 0.5;
 BTC_3d_icon_color  = [1,0,0,1];
-BTC_objects_actions_west = [BTC_base_flag_west];
-BTC_objects_actions_east = [BTC_base_flag_east];
+BTC_objects_actions_west = [];
+BTC_objects_actions_east = [];
 BTC_objects_actions_guer = [];
 BTC_objects_actions_civ  = [];
 if (isServer) then
 {
-	BTC_vehs_mobile_west = [mobile_west_0];//Editable - define mobile west
-	BTC_vehs_mobile_east = [mobile_east_0];//Editable - define mobile east
+	BTC_vehs_mobile_west = [];//Editable - define mobile west
+	BTC_vehs_mobile_east = [];//Editable - define mobile east
 	BTC_vehs_mobile_guer = [];//Editable - define mobile independent
 	BTC_vehs_mobile_civ  = [];//Editable - define mobile civilian
 };

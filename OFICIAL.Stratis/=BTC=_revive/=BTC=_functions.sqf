@@ -419,6 +419,7 @@ BTC_player_killed =
 	private ["_type_backpack","_weapons","_magazines","_weapon_backpack","_ammo_backpack","_score","_score_array","_name","_body_marker"];
 	titleText ["", "BLACK OUT"];
 	_body = _this select 0;
+	
 	[_body] spawn
 	{
 		_body = _this select 0;
@@ -426,6 +427,9 @@ BTC_player_killed =
 		_pos = getPosATL vehicle _body;
 		if (BTC_lifes != 0 || BTC_active_lifes == 0) then
 		{
+			if {BTC_Revive_Limit == 0} exitWith BTC_player_respawn;
+			BTC_Revive_Limit = BTC_Revive_Limit - 1;
+		
 			WaitUntil {Alive player};
 			detach player;
 			//player setPos [getMarkerPos BTC_respawn_marker select 0, getMarkerPos BTC_respawn_marker select 1, 5000];

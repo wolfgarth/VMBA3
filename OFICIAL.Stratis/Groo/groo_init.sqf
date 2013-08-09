@@ -16,6 +16,15 @@ player createDiaryRecord ["Diary", 		["Equipamento",
 										"MILSIM e rádios na caixa ao lado. Siga as orientações dos seus superiores e"+
 										"evitem aglomeração."]
 										];
+
+player createDiaryRecord ["Diary", 		["Revive", 
+										"O combatente atingido tem a chance de sobreviver por 6 minutos até receber"+
+										"tratamento médico. O número de vezes que o combatente pode ser atingido"+
+										"e voltar ao combate após atendimento é 3. Quando não houver mais condições"+
+										"de ser tratado o combatente morrerá não podendo retornar a operação."+
+										"Combatentes feridos são identificados por 1 simbolo vermelho a partir de"+
+										"30 metros de distância."]
+										];										
 player createDiaryRecord ["Diary",										
 										["Grupos", 
 										"A qualquer momento utilize a ação rose Group Menu para ingressar em"+
@@ -33,8 +42,5 @@ player createDiaryRecord ["Diary",
 										"Cpl.Andrade<br/>"+
 										"Cpl.Cpl.OfKings<br/>"+
 										"Cpl.IronPack<br/>"+
-										"<br/><br/>"+
-										"Scripts:<br/>"+
-										"Zuff Group Management 1.1<br/>"+
-										"http://forums.bistudio.com/showthread.php?154177-Group-Management-Script"]
+										"<br/><br/>"]
 										];										
